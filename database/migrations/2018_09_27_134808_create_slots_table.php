@@ -15,6 +15,9 @@ class CreateSlotsTable extends Migration
     {
         Schema::create('slots', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('area');
+            $table->integer('slot');
+            $table->boolean('is_engaged');
             $table->timestamps();
         });
     }
