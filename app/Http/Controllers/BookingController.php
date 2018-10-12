@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Slot;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +31,17 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        $slots = Slot::all();
+
+        foreach($slots as $slot)
+        {
+            if(Booking::where('slot_id', $slot->id)->orderBy('created_at', 'desc')->first()->created_at < Carbon::now())
+            {
+                Slot::where('id', $slot->id)->update(['is_engaged' => 0]);
+            }
+        }
+
+        return view('booking.create', compact('slots'));
     }
 
     /**
@@ -33,9 +50,17 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Slot $slot)
     {
-        //
+        Booking::create([
+            'user_id' => auth()->id(),
+            'slot_id' => $slot->id,
+            'validity' => request('validity'),
+        ]);
+
+        Slot::where('id', $slot->id)->update(['is_engaged' => 1]);
+
+        return redirect('home');
     }
 
     /**
@@ -44,9 +69,14 @@ class BookingController extends Controller
      * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(Booking $booking, Slot $slot)
     {
-        //
+        $booking = Slot::where('id', $slot->id)->first();
+
+        if(!$booking->is_active)
+        {
+            return view('booking.show', compact('booking'));
+        }
     }
 
     /**

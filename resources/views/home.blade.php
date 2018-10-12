@@ -5,16 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Current Pass</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <?php $carbon = new \Carbon\Carbon($booking->created_at); ?>
+                    @if($carbon->addDays($booking->validity) > \Carbon\Carbon::now())
+                        Valid till {{ $carbon->toFormattedDateString() }}
+                    @else
+                        <a href="/booking"><button type="button" class="btn btn-primary">Book</button></a>
                     @endif
-
-                    You are logged in!
                 </div>
             </div>
         </div>

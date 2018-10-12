@@ -17,6 +17,7 @@ class CreateSlotsTable extends Migration
             $table->increments('id');
             $table->string('area');
             $table->integer('slot');
+            $table->boolean('faculty_reserved');
             $table->boolean('is_engaged');
             $table->timestamps();
         });

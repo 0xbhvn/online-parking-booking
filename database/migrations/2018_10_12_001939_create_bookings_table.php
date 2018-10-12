@@ -17,6 +17,7 @@ class CreateBookingsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('slot_id');
+            $table->integer('validity');
             $table->timestamps();
         });
     }
