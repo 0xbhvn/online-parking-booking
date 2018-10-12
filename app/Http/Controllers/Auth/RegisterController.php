@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'moodle' => 'required|string',
+            'vehicle_no' => 'required|string',
         ]);
     }
 
@@ -69,6 +70,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'moodle' => $data['moodle'],
+            'vehicle_no' => $data['vehicle_no'],
         ]);
     }
 }

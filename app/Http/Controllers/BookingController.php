@@ -35,9 +35,12 @@ class BookingController extends Controller
 
         foreach($slots as $slot)
         {
-            if(Booking::where('slot_id', $slot->id)->orderBy('created_at', 'desc')->first()->created_at < Carbon::now())
+            if(Booking::where('slot_id', $slot->id)->exists())
             {
-                Slot::where('id', $slot->id)->update(['is_engaged' => 0]);
+                if(Booking::where('slot_id', $slot->id)->orderBy('created_at', 'desc')->first()->created_at > Carbon::now())
+                {
+                    $slot->update(['is_engaged' => 0]);
+                }
             }
         }
 

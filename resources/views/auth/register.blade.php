@@ -54,6 +54,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="vehicle_no" class="col-md-4 col-form-label text-md-right">{{ __('Vehicle No') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="vehicle_no" type="text" class="form-control{{ $errors->has('vehicle_no') ? ' is-invalid' : '' }}" name="vehicle_no" value="{{ old('vehicle_no') }}" required>
+
+                                @if ($errors->has('vehicle_no'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('vehicle_no') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

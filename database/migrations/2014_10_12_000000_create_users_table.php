@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('moodle');
             $table->boolean('is_faculty')->default(0);
+            $table->string('vehicle_no');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
