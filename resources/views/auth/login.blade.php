@@ -22,7 +22,7 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                          a  </div>
                         </div>
 
                         <div class="form-group row">
