@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Parking Booking</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -69,6 +68,5 @@
     <main class="py-4">
         @yield('content')
     </main>
-
 </body>
 </html>
